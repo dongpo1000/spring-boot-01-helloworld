@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--本项目的组织名（域名反写），项目名，版本号及描述-->
+    <groupId>com.pywl</groupId>
+    <artifactId>spring-boot-01-helloworld</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <description>
+        SpringBoot的HelloWorld。参考文档地址：https://docs.spring.io/spring-boot/docs/2.0.6.RELEASE/reference/html/index.html
+    </description>
+
+    <!--打包方式：jar包即可。可不写，默认也是jar包-->
+    <packaging>jar</packaging>
+
+    <!--
+        Spring Boot 父类启动器。
+        Inherit defaults from Spring Boot ：从 Spring Boot 项目中继承开发约定俗成的默认值（核心思想：约定优于配置）。
+        它的父工程 spring-boot-dependencies 来真正管理Spring Boot应用里面的所有依赖版本，相当于一个版本仲裁中心。中心管理的依赖引入时不再需要写版本号，未纳入管理的仍然需要写版本号。
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.6.RELEASE</version>
+    </parent>
+
+    <!--通用属性设置：可覆盖SpringBoot父类启动器中的通用属性，比如依赖版本等。不需要可以不写。-->
+    <properties>
+        <!--设置项目构建源编码，不设置会发出警告信息。父工程其实已经设置。详细解释地址见 https://maven.apache.org/general.html-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--设置项目报告输出编码。详细解释地址见 https://cwiki.apache.org/confluence/display/MAVENOLD/Reporting+Encoding+Configuration-->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--设置Java编译版本，覆盖的是SpringBoot父类启动器中properties中对应的内容，其实两处设置是一样的。-->
+        <java.version>1.8</java.version>
+        <!--打包跳过测试-->
+        <skipTests>true</skipTests>
+    </properties>
+
+
+    <!--依赖-->
+    <dependencies>
+
+        <!--
+            web场景（功能）启动器：帮我们导入了web模块正常运行所依赖的组件。需要什么功能就导入什么场景的启动器。
+            Starter for building web, including RESTful, applications using Spring MVC.Uses Tomcat as the default embedded container
+            默认启动端口：8080，根路径为 ""
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--
+            测试启动器: 这里又导入了测试功能需要的启动器，本HelloWorld工程实际不需要，此处只是举个例子说明一下
+            Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest and Mockito
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <!--Spring Boot Maven plugin能够将SpringBoot应用打包为可执行的jar或war文件，
+                如为web项目，则不需要再建立一个tomcat就能直接通过 java -jar 的方式运行该程序打包以后生成的 jar包（在 target 目录下），方便部署
+                打包常用命令：在下面的 Terminal中，本项目路径下执行 mvn clean package 即可。或者 使用右侧工具栏maven的生命周期操作。
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
